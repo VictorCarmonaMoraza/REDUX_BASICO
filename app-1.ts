@@ -10,8 +10,18 @@ interface Action {
 //state  --> estado anterior
 //action --> Es la accion que nosotros queremos que realice
 function reducer(state = 10, action: Action) {
-    if (action.type === 'INCREMENTAR') {
-        return state += 1;
+    switch (action.type) {
+        case 'INCREMENTAR':
+            return state += 1;
+        case 'DECREMENTAR':
+            return state -= 1;
+        case 'MULTIPLICAR':
+            return state * action.payload;
+        case 'DIVIDIR':
+            return state / action.payload;
+
+        default:
+            return state;
     }
     return state;
 }
@@ -23,4 +33,27 @@ const incrementadorAction: Action = {
 
 //Usar el reducer
 let valorReducer = reducer(10, incrementadorAction);
-console.log(valorReducer);
+console.log('incrementadorAction--->', valorReducer); //11
+
+const decrementadorAction: Action = {
+    type: 'DECREMENTAR'
+};
+
+let valorReducer2 = reducer(10, decrementadorAction);
+console.log('decrementadorAction--->', valorReducer2); //9
+
+const multiplicadorAction: Action = {
+    type: 'MULTIPLICAR',
+    payload: 12
+};
+
+let valorReducer3 = reducer(10, multiplicadorAction);
+console.log('multiplicadorAction--->', valorReducer3); //9
+
+const dividirAction: Action = {
+    type: 'DIVIDIR',
+    payload: 7
+};
+
+let valorReducer4 = reducer(10, dividirAction);
+console.log('dividirAction--->', valorReducer4);
